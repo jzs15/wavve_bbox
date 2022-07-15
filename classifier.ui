@@ -6,524 +6,390 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>2010</width>
-    <height>900</height>
+    <width>984</width>
+    <height>785</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QPushButton" name="add_button">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>740</y>
+     <width>75</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>추가</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>580</y>
+     <width>121</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>이미지 이름:</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="only_not_added">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>620</y>
+     <width>281</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>추가되지 않은 이미지만 보기</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="cur_saved_name">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>620</y>
+     <width>361</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>-</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_9">
+   <property name="geometry">
+    <rect>
+     <x>760</x>
+     <y>580</y>
+     <width>75</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt; 이전</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_8">
+   <property name="geometry">
+    <rect>
+     <x>850</x>
+     <y>580</y>
+     <width>75</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>다음 &gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="cur_image_name">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>580</y>
+     <width>361</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>-</string>
+   </property>
+  </widget>
+  <widget class="QGraphicsView" name="cur_image_view">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>1000</width>
-     <height>801</height>
+     <width>960</width>
+     <height>540</height>
     </rect>
    </property>
-   <property name="title">
-    <string>현재 이미지</string>
-   </property>
-   <widget class="QGraphicsView" name="graphicsView">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>20</y>
-      <width>960</width>
-      <height>540</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>670</y>
-      <width>121</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>BBox 보기</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>710</y>
-      <width>75</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>추가</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>590</y>
-      <width>121</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>이미지 이름:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="cur_image_name">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>590</y>
-      <width>361</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>temp.jpg</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_8">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>630</y>
-      <width>141</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>분류된 이미지:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="cur_saved_name">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>630</y>
-      <width>361</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>temp.jpg</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_7">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>710</y>
-      <width>75</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>수정</string>
-    </property>
-   </widget>
   </widget>
-  <widget class="QGroupBox" name="groupBox_2">
+  <widget class="QLabel" name="anno_status">
    <property name="geometry">
     <rect>
-     <x>1020</x>
-     <y>10</y>
-     <width>1000</width>
-     <height>800</height>
+     <x>660</x>
+     <y>660</y>
+     <width>101</width>
+     <height>25</height>
     </rect>
    </property>
-   <property name="title">
-    <string>검색된 이미지</string>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
    </property>
-   <widget class="QGraphicsView" name="graphicsView_2">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>20</y>
-      <width>960</width>
-      <height>540</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="searched_image_name">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>590</y>
-      <width>361</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>temp.jpg</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_7">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>590</y>
-      <width>121</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>이미지 이름:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_10">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>630</y>
-      <width>191</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>분류 내 다른 이미지</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_14">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>670</y>
-      <width>171</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>다른 분류 이미지</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_3">
-    <property name="geometry">
-     <rect>
-      <x>250</x>
-      <y>630</y>
-      <width>75</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt; 이전</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_4">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>630</y>
-      <width>75</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>다음 &gt;</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_5">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>670</y>
-      <width>75</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>다음 &gt;</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_6">
-    <property name="geometry">
-     <rect>
-      <x>250</x>
-      <y>670</y>
-      <width>75</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt; 이전</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>750</x>
-      <y>710</y>
-      <width>75</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>검색</string>
-    </property>
-   </widget>
-   <widget class="QSpinBox" name="object_num">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>710</y>
-      <width>50</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QSpinBox" name="focused_object">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>710</y>
-      <width>50</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>710</y>
-      <width>110</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Object 개수:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>500</x>
-      <y>710</y>
-      <width>150</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>포커스된 Object:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>710</y>
-      <width>120</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>이미지 분류:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="image_class">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>710</y>
-      <width>91</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
+   <property name="text">
+    <string>없음</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>620</y>
+     <width>141</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>분류된 이미지:</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="bbox_check">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>700</y>
+     <width>121</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>BBox 보기</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="focused_object">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>660</y>
+     <width>50</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="object_num">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>660</y>
+     <width>50</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>660</y>
+     <width>120</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>이미지 분류:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>660</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>포커스된 Object:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>660</y>
+     <width>110</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Object 개수:</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="image_class">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>660</y>
+     <width>50</width>
+     <height>25</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>object_num</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Dialog</receiver>
+   <slot>search(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>184</x>
+     <y>671</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>208</x>
+     <y>708</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>image_class</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Dialog</receiver>
+   <slot>search(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>384</x>
+     <y>671</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>378</x>
+     <y>711</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>focused_object</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Dialog</receiver>
+   <slot>search(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>601</x>
+     <y>679</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>593</x>
+     <y>713</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bbox_check</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Dialog</receiver>
+   <slot>show_image()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>113</x>
+     <y>711</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>163</x>
+     <y>736</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>add_button</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
    <slot>add_image()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>95</x>
-     <y>738</y>
+     <x>73</x>
+     <y>750</y>
     </hint>
     <hint type="destinationlabel">
-     <x>94</x>
-     <y>830</y>
+     <x>290</x>
+     <y>749</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_7</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>modify_image()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>196</x>
-     <y>735</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>201</x>
-     <y>824</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>Dialog</receiver>
-   <slot>view_bbox(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>75</x>
-     <y>693</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>72</x>
-     <y>864</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_3</sender>
+   <sender>pushButton_9</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
    <slot>prev_image()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1310</x>
-     <y>657</y>
+     <x>798</x>
+     <y>596</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1316</x>
-     <y>835</y>
+     <x>803</x>
+     <y>677</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_4</sender>
+   <sender>pushButton_8</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
    <slot>next_image()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1383</x>
-     <y>649</y>
+     <x>889</x>
+     <y>586</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1421</x>
-     <y>832</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_6</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>prev_class()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1327</x>
-     <y>696</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1333</x>
-     <y>876</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_5</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>next_class()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1405</x>
-     <y>691</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1417</x>
-     <y>868</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>search()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1807</x>
-     <y>732</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1824</x>
-     <y>852</y>
+     <x>910</x>
+     <y>674</y>
     </hint>
    </hints>
   </connection>
@@ -532,10 +398,12 @@
   <slot>add_image()</slot>
   <slot>modify_image()</slot>
   <slot>view_bbox(bool)</slot>
-  <slot>search()</slot>
+  <slot>search(int)</slot>
   <slot>next_class()</slot>
   <slot>prev_class()</slot>
   <slot>next_image()</slot>
   <slot>prev_image()</slot>
+  <slot>new_image()</slot>
+  <slot>show_image()</slot>
  </slots>
 </ui>
