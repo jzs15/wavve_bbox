@@ -42,12 +42,18 @@ class ClassifierApp(QtWidgets.QDialog):
         with open('./data/image_dict.json', 'w', encoding='utf-8') as file:
             json.dump(self.image_dict, file)
 
+    def save_bbox(self, txt_path):
+        f = open(txt_path, 'w+')
+        for c, x1, y1, x2, y2 in self.bbox_list:
+            f.write('{} {} {} {} {}\n'.format(c, x1, y1, x2, y2))
+        f.close()
+
     def add_image(self):
         cur_name = self.cur_image_list[self.cur_image_idx]
 
         image_list = glob.glob(
             './data/res/{:03d}-{:03d}-{:03d}-*'.format(self.ui.object_num.value(), self.ui.image_class.value(),
-                                            self.ui.focused_object.value()))
+                                                       self.ui.focused_object.value()))
         if len(image_list) > 0:
             last_image = image_list[-1]
             new_id = int(last_image.split('-')[-1]) + 1
@@ -59,7 +65,11 @@ class ClassifierApp(QtWidgets.QDialog):
         new_path = os.path.join('./data/res', new_name)
         os.makedirs(new_path)
         shutil.copyfile(os.path.join('./data/img', cur_name), os.path.join(new_path, new_name + '.jpg'))
-        shutil.copyfile(os.path.join('./data/txt', new_name[:-4] + '.txt'), os.path.join(new_path, new_name + '.txt'))
+        if self.ui.extra_check.isChecked():
+            self.save_bbox(os.path.join(new_path, new_name + '.txt'))
+        else:
+            shutil.copyfile(os.path.join('./data/txt', new_name[:-4] + '.txt'),
+                            os.path.join(new_path, new_name + '.txt'))
         self.image_dict[cur_name] = new_name
         self.ui.cur_saved_name.setText(new_name + '.jpg')
         self.write_image_dict()
@@ -79,6 +89,19 @@ class ClassifierApp(QtWidgets.QDialog):
             c, x1, y1, x2, y2 = map(int, line.split(' '))
             self.bbox_list = np.append(self.bbox_list, [[c, x1, y1, x2, y2]], axis=0)
         f.close()
+
+        if self.ui.extra_check.isChecked():
+            fv = [-1, -1, -1, -1]
+            fy = -1
+            for c, x1, y1, x2, y2 in self.bbox_list:
+                if c == 1:
+                    fv = [x1, y1, x2, y2]
+                    fy = min(2160 - 1, y2 + 29)
+                    break
+
+            for i, v in enumerate(self.bbox_list):
+                if (v[1:] == fv).all():
+                    self.bbox_list[i][4] = fy
 
     def search(self):
         txt_name = '{:03d}-{:03d}-{:03d}.txt'.format(self.ui.object_num.value(), self.ui.image_class.value(),

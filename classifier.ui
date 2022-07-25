@@ -278,6 +278,27 @@
     </rect>
    </property>
   </widget>
+  <widget class="QCheckBox" name="extra_check">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>700</y>
+     <width>81</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>더보기</string>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>
@@ -390,6 +411,22 @@
     <hint type="destinationlabel">
      <x>910</x>
      <y>674</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>extra_check</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Dialog</receiver>
+   <slot>show_image()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>572</x>
+     <y>712</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>573</x>
+     <y>754</y>
     </hint>
    </hints>
   </connection>
