@@ -18,7 +18,7 @@ class ViewerApp(QtWidgets.QDialog):
         self.cur_scene = QtWidgets.QGraphicsScene(self.ui.cur_image_view)
         self.ui.cur_image_view.setScene(self.cur_scene)
 
-        self.cur_image_list = natsort.natsorted(os.listdir('./data/res'))
+        self.cur_image_list = glob.glob('data/res/type*/images/*.jpg')
         self.ui.image_num.setText(str(len(self.cur_image_list)))
         self.ui.cur_idx.setMaximum(len(self.cur_image_list))
         self.cur_image_idx = 0
@@ -48,15 +48,21 @@ class ViewerApp(QtWidgets.QDialog):
         is_view = self.ui.bbox_check.isChecked()
         if not is_view:
             return
-        cur_name = self.cur_image_list[self.cur_image_idx]
-        txt_path = './data/res/{0}/{0}.txt'.format(cur_name)
+        cur_name = self.cur_image_list[self.cur_image_idx][-19:-4]
+        txt_path = './data/res/type_{}/labels/{}.txt'.format(cur_name[:7], cur_name)
+
+        img_width = 3840
+        img_height = 2160
+
         f = open(txt_path, 'r')
         while True:
             line = f.readline().strip()
             if not line:
                 break
-            c, x1, y1, x2, y2 = map(int, line.split(' '))
-            self.bbox_list = np.append(self.bbox_list, [[c, x1, y1, x2, y2]], axis=0)
+            c, x, y, w, h = map(float, line.split(' '))
+            self.bbox_list = np.append(self.bbox_list, [
+                [int(c), int((x - w / 2) * img_width), int((y - h / 2) * img_height), int((x + w / 2) * img_width),
+                 int((y + h / 2) * img_height)]], axis=0)
         f.close()
 
     def next_image(self):
@@ -73,9 +79,9 @@ class ViewerApp(QtWidgets.QDialog):
 
     def update_image(self):
         self.ui.cur_idx.setValue(self.cur_image_idx + 1)
-        cur_name = self.cur_image_list[self.cur_image_idx]
-        self.cur_image = cv2.imread('./data/res/{0}/{0}.jpg'.format(cur_name))
-        self.ui.cur_image_name.setText(cur_name + '.jpg')
+        cur_name = self.cur_image_list[self.cur_image_idx][-19:]
+        self.cur_image = cv2.imread(self.cur_image_list[self.cur_image_idx])
+        self.ui.cur_image_name.setText(cur_name)
 
     def show_image(self):
         self.cur_scene.clear()

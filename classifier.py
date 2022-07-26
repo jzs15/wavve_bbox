@@ -9,6 +9,9 @@ import numpy as np
 from PyQt5 import QtWidgets, QtGui, uic
 from PyQt5.QtCore import Qt, QRectF
 
+img_width = 3840
+img_height = 2160
+
 
 class ClassifierApp(QtWidgets.QDialog):
     def __init__(self, parent=None):
@@ -45,31 +48,44 @@ class ClassifierApp(QtWidgets.QDialog):
     def save_bbox(self, txt_path):
         f = open(txt_path, 'w+')
         for c, x1, y1, x2, y2 in self.bbox_list:
-            f.write('{} {} {} {} {}\n'.format(c, x1, y1, x2, y2))
+            f.write(
+                '{} {:.9f} {:.9f} {:.9f} {:.9f}\n'.format(int(c), (x1 + x2) / 2 / img_width, (y1 + y2) / 2 / img_height,
+                                                          (x2 - x1) / img_width, (y2 - y1) / img_height))
         f.close()
 
     def add_image(self):
         cur_name = self.cur_image_list[self.cur_image_idx]
 
         image_list = glob.glob(
-            './data/res/{:03d}-{:03d}-{:03d}-*'.format(self.ui.object_num.value(), self.ui.image_class.value(),
-                                                       self.ui.focused_object.value()))
+            './data/res/type_{0:03d}_{1:03d}/images/{0:03d}_{1:03d}_{2:03d}_*'.format(self.ui.object_num.value(),
+                                                                                      self.ui.image_class.value(),
+                                                                                      self.ui.focused_object.value()))
         if len(image_list) > 0:
             last_image = image_list[-1]
-            new_id = int(last_image.split('-')[-1]) + 1
+            new_id = int(last_image.split('_')[-1]) + 1
         else:
             new_id = 0
-        new_name = '{:03d}-{:03d}-{:03d}-{:03d}'.format(self.ui.object_num.value(), self.ui.image_class.value(),
+
+        type_name = 'type_{:03d}_{:03d}'.format(self.ui.object_num.value(), self.ui.image_class.value())
+        new_name = '{:03d}_{:03d}_{:03d}_{:03d}'.format(self.ui.object_num.value(), self.ui.image_class.value(),
                                                         self.ui.focused_object.value(), new_id)
 
-        new_path = os.path.join('./data/res', new_name)
-        os.makedirs(new_path)
-        shutil.copyfile(os.path.join('./data/img', cur_name), os.path.join(new_path, new_name + '.jpg'))
+        # 타입 폴더 없으면 생성
+        new_path = os.path.join('./data/res', type_name)
+        if not os.path.isdir(new_path):
+            os.makedirs(os.path.join(new_path, 'images'))
+            os.makedirs(os.path.join(new_path, 'labels'))
+
+        # 이미지 저장
+        shutil.copyfile(os.path.join('./data/img', cur_name), os.path.join(new_path, 'images', new_name + '.jpg'))
+
+        # label 저장
         if self.ui.extra_check.isChecked():
-            self.save_bbox(os.path.join(new_path, new_name + '.txt'))
+            # extra_check: 더보기가 선택된 이미지(새로운 BBox 생성)
+            self.save_bbox(os.path.join(new_path, 'labels', new_name + '.txt'))
         else:
             shutil.copyfile(os.path.join('./data/txt', new_name[:-4] + '.txt'),
-                            os.path.join(new_path, new_name + '.txt'))
+                            os.path.join(new_path, 'labels', new_name + '.txt'))
         self.image_dict[cur_name] = new_name
         self.ui.cur_saved_name.setText(new_name + '.jpg')
         self.write_image_dict()
@@ -86,7 +102,12 @@ class ClassifierApp(QtWidgets.QDialog):
             line = f.readline().strip()
             if not line:
                 break
-            c, x1, y1, x2, y2 = map(int, line.split(' '))
+            c, x, y, w, h = map(float, line.split(' '))
+            c = int(c)
+            x1 = int((x - w / 2) * img_width)
+            y1 = int((y - h / 2) * img_height)
+            x2 = int((x + w / 2) * img_width)
+            y2 = int((y + h / 2) * img_height)
             self.bbox_list = np.append(self.bbox_list, [[c, x1, y1, x2, y2]], axis=0)
         f.close()
 
@@ -96,7 +117,7 @@ class ClassifierApp(QtWidgets.QDialog):
             for c, x1, y1, x2, y2 in self.bbox_list:
                 if c == 1:
                     fv = [x1, y1, x2, y2]
-                    fy = min(2160 - 1, y2 + 29)
+                    fy = min(img_width - 1, y2 + 29)
                     break
 
             for i, v in enumerate(self.bbox_list):
@@ -104,7 +125,7 @@ class ClassifierApp(QtWidgets.QDialog):
                     self.bbox_list[i][4] = fy
 
     def search(self):
-        txt_name = '{:03d}-{:03d}-{:03d}.txt'.format(self.ui.object_num.value(), self.ui.image_class.value(),
+        txt_name = '{:03d}_{:03d}_{:03d}.txt'.format(self.ui.object_num.value(), self.ui.image_class.value(),
                                                      self.ui.focused_object.value())
         txt_path = os.path.join('./data/txt/', txt_name)
         if os.path.exists(txt_path):

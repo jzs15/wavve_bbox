@@ -2,14 +2,30 @@
 이미지 Ground Truth 생성 Program
 
 ### 사용법 ###
-오른쪽 마우스 클릭 후 드래그 -> 바운딩 박스 생성
-바운딩 박스 클릭 -> 바운딩 박스 선택
-좌/우 방향키 -> 사진 변경 (주의!! 수정 내용 저장 안됨)
+1. data/class 폴더에 클래스를 대표하는 이미지 추가 (파일 이름은 {세자리 숫자}.jpg)
+2. class_num을 클래스 번호로 설정
+3. 아래 키 혹은 config 창을 활용하여 바운딩 박스 생성
+4. s키를 눌러 저장
+
+저장 위치: data/txt
+저장 파일 명: {Object 수}_{클래스 번호}_{Focus 된 오브젝트}.txt
+Focus 된 오브젝트는 0부터 Object 수까지 자동 생성
+
+오른쪽 마우스 클릭 -> 선택 모드, 그리기 모드 변경
+왼쪽 마우스 클릭 -> 바운딩 박스 선택 or 그리기
+방향키 -> 해당 방향으로 바운딩 박스 생성
+r키 -> 미리 설정된 화면 비율 변경 및 위치 이동 / 초기화
 s키 -> 현재 바운딩 박스 저장
-t키 -> 바둑판 모양 바운딩 박스 자동 생성
-b키 -> 클래스 변경 (큰 바운딩 박스)
+x키 -> 모든 바운딩 박스 지우기
+b키 -> 선택된 바운딩 박스 focus 된 모양 확인
 DEL -> 선택된 바운딩 박스 삭제
 ESC -> Program 종료
+
+### 다른 APP 대응 ###
+img_width
+img_height
+bbox_type
+세 가지 변수 변경 후 사용
 """
 
 import os
@@ -17,7 +33,7 @@ import cv2
 from PIL import ImageFont, ImageDraw, Image
 import numpy as np
 
-class_num = 99
+class_num = 100
 img_name = '{:03d}.jpg'.format(class_num)
 path = './data'
 img_path = os.path.join(path, 'class')
@@ -173,7 +189,7 @@ def get_focused_bbox(v):
     x1, y1, x2, y2 = v[1:]
     x1 = max(0, x1 - bbox_type[c]['bx'])
     x2 = min(img_width - 1, x2 + bbox_type[c]['bx'])
-    if c == 3: # 재생 목록
+    if c == 3:  # 재생 목록
         x1 = max(0, x1 - 160)
         x2 = min(img_width - 1, x2 + 830)
     y1 = max(0, y1 - bbox_type[c]['by'])
@@ -219,15 +235,21 @@ def save_bb():
     res = sorted(bb_list, key=lambda x: (x[2], x[1], x[0]))
     object_cnt = len(res)
     for fi in range(object_cnt + 1):
-        txt_name = '{:03d}-{:03d}-{:03d}.txt'.format(object_cnt, class_num, fi)
+        txt_name = '{:03d}_{:03d}_{:03d}.txt'.format(object_cnt, class_num, fi)
         txt = os.path.join('./data/txt', txt_name)
         f = open(txt, 'w+')
         for bi, v in enumerate(res):
             c, x1, y1, x2, y2 = v
             if bi == fi - 1:
                 x1, y1, x2, y2 = get_focused_bbox(v)
-                f.write('{} {} {} {} {}\n'.format(1, x1, y1, x2, y2))
-            f.write('{} {} {} {} {}\n'.format(0, x1, y1, x2, y2))
+                f.write(
+                    '{} {:.9f} {:.9f} {:.9f} {:.9f}\n'.format(1, (x1 + x2) / 2 / img_width,
+                                                              (y1 + y2) / 2 / img_height,
+                                                              (x2 - x1) / img_width, (y2 - y1) / img_height))
+            f.write(
+                '{} {:.9f} {:.9f} {:.9f} {:.9f}\n'.format(0, (x1 + x2) / 2 / img_width,
+                                                          (y1 + y2) / 2 / img_height,
+                                                          (x2 - x1) / img_width, (y2 - y1) / img_height))
 
         f.close()
 

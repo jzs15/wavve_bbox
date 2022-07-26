@@ -277,6 +277,9 @@
      <height>25</height>
     </rect>
    </property>
+   <property name="maximum">
+    <number>999</number>
+   </property>
   </widget>
   <widget class="QCheckBox" name="extra_check">
    <property name="geometry">
