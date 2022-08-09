@@ -33,7 +33,7 @@ import cv2
 from PIL import ImageFont, ImageDraw, Image
 import numpy as np
 
-class_num = 100
+class_num = 2
 img_name = '{:03d}.jpg'.format(class_num)
 path = './data'
 img_path = os.path.join(path, 'class')
@@ -106,6 +106,15 @@ bbox_type = [
         'bx': 57,  # 마우스 올렸을 때의 x 간격
         'by': 31  # 마우스 올렸을 때의 y 간격
     },
+    {
+        'name': '타임라인',
+        'bb_width': 582,  # 바운딩박스 너비
+        'bb_height': 320,  # 바운딩박스 높이
+        'sw': 38,  # clickable 박스 간의 x 간격
+        'sh': 99999,  # clickable 박스 간의 y 간격
+        'bx': 14,  # 마우스 올렸을 때의 x 간격
+        'by': 8  # 마우스 올렸을 때의 y 간격
+    }
 ]
 
 
@@ -386,9 +395,9 @@ while True:  # 무한 루프
             cv2.setTrackbarPos('y_trans', 'config', 0)
         else:
             cv2.setTrackbarPos('ratio', 'config', len(ratio_list) - 1)
-            cv2.setTrackbarPos('x_trans', 'config', 250)
-            cv2.setTrackbarPos('y_trans', 'config', 1550)
-            cv2.setTrackbarPos('bbox_type', 'config', 1)
+            cv2.setTrackbarPos('x_trans', 'config', 0)
+            cv2.setTrackbarPos('y_trans', 'config', 1050)
+            cv2.setTrackbarPos('bbox_type', 'config', 6)
             # cv2.setTrackbarPos('y_trans', 'config', 550)
         draw_img()
     elif keycode == 0x1B:  # ESC 누를 시 종료

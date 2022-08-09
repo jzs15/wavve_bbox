@@ -61,7 +61,7 @@ class ClassifierApp(QtWidgets.QDialog):
                                                                                       self.ui.image_class.value(),
                                                                                       self.ui.focused_object.value()))
         if len(image_list) > 0:
-            last_image = image_list[-1]
+            last_image = os.path.splitext(os.path.basename(image_list[-1]))[0]
             new_id = int(last_image.split('_')[-1]) + 1
         else:
             new_id = 0
